@@ -34,7 +34,7 @@ function Footer() {
             </a>
 
             <a
-              href="https://www.linkedin.com/in/ishan-surdi/"
+              href="https://www.linkedin.com/in/ishansurdiofficial/"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-1.5 text-sm text-slate hover:text-industrial-blue transition-colors"
