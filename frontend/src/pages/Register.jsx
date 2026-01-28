@@ -6,6 +6,7 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { UserPlusIcon } from '@heroicons/react/24/outline'
+import Footer from '../components/Footer'
 
 function Register() {
   const navigate = useNavigate()
@@ -63,7 +64,8 @@ function Register() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-bg-base px-4 py-12">
+    <div className="min-h-screen flex flex-col bg-bg-base">
+      <div className="flex-1 flex items-center justify-center px-4 py-12">
       <div className="max-w-md w-full">
         {/* Header */}
         <div className="text-center mb-10">
@@ -225,12 +227,9 @@ function Register() {
             </p>
           </div>
         </div>
-
-        {/* Footer */}
-        <p className="mt-8 text-center text-xs text-ash font-mono uppercase tracking-wider">
-          Secure Registration • IITB FOSSEE Project
-        </p>
       </div>
+      </div>
+      <Footer />
     </div>
   )
 }
