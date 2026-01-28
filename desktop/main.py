@@ -20,7 +20,12 @@ from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 import matplotlib.pyplot as plt
 
-API_BASE_URL = "http://127.0.0.1:8000/api"
+# API Configuration - Uses production backend by default
+API_BASE_URL = os.getenv("CHEMVIZ_API_URL", "https://chemviz-backend-i9o3.onrender.com/api")
+
+# For local development, set environment variable:
+# Windows: $env:CHEMVIZ_API_URL="http://127.0.0.1:8000/api"
+# Linux/Mac: export CHEMVIZ_API_URL="http://127.0.0.1:8000/api"
 
 
 class MatplotlibCanvas(FigureCanvas):

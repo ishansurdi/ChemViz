@@ -12,6 +12,8 @@ import {
   ArrowUpTrayIcon,
   DocumentArrowDownIcon,
   ClockIcon,
+  ArrowDownTrayIcon,
+  ComputerDesktopIcon,
 } from '@heroicons/react/24/outline'
 
 function Dashboard() {
@@ -84,7 +86,16 @@ function Dashboard() {
             Precision analytics for chemical equipment parameters
           </p>
         </div>
-        <div className="flex gap-3">
+        <div className="flex flex-wrap gap-3">
+          <a
+            href="https://github.com/ishansurdi/ChemViz/releases/latest/download/ChemViz-Desktop.exe"
+            className="btn bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white flex items-center gap-2 shadow-lg"
+            download
+          >
+            <ArrowDownTrayIcon className="w-5 h-5" />
+            <ComputerDesktopIcon className="w-5 h-5" />
+            Download Desktop App
+          </a>
           <Link to="/upload" className="btn btn-primary flex items-center gap-2">
             <ArrowUpTrayIcon className="w-5 h-5" />
             Upload Dataset
@@ -98,6 +109,43 @@ function Dashboard() {
               Download Report
             </button>
           )}
+        </div>
+      </div>
+
+      {/* Desktop App Info Banner */}
+      <div className="bg-gradient-to-r from-blue-50 to-purple-50 border-2 border-blue-200 rounded-lg p-6">
+        <div className="flex items-start gap-4">
+          <div className="bg-blue-600 text-white p-3 rounded-lg">
+            <ComputerDesktopIcon className="w-8 h-8" />
+          </div>
+          <div className="flex-1">
+            <h3 className="text-lg font-bold text-charcoal mb-2 font-heading">
+              🎉 Desktop Application Available!
+            </h3>
+            <p className="text-slate mb-4">
+              Download our standalone desktop app for Windows. It connects to the same cloud backend - 
+              no configuration needed! Features include: CSV upload, real-time charts, PDF reports, and offline-ready design.
+            </p>
+            <div className="flex flex-wrap gap-3">
+              <a
+                href="https://github.com/ishansurdi/ChemViz/releases/latest/download/ChemViz-Desktop.exe"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors"
+                download
+              >
+                <ArrowDownTrayIcon className="w-5 h-5" />
+                Download for Windows (.exe)
+              </a>
+              <span className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-slate-300 rounded-lg text-slate text-sm">
+                ✅ Auto-connects to cloud backend
+              </span>
+              <span className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-slate-300 rounded-lg text-slate text-sm">
+                📊 Full-featured PyQt5 app
+              </span>
+              <span className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-slate-300 rounded-lg text-slate text-sm">
+                💾 ~200 MB download
+              </span>
+            </div>
+          </div>
         </div>
       </div>
 
