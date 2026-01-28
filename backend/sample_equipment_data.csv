@@ -1,0 +1,51 @@
+Equipment Name,Type,Flowrate,Pressure,Temperature
+Reactor-A101,Chemical Reactor,150.5,45.2,320.5
+Heat Exchanger-H201,Heat Exchanger,200.3,35.8,185.2
+Distillation Column-D301,Distillation Unit,180.7,28.5,220.3
+Pump-P101,Pump,95.2,55.0,65.0
+Reactor-A102,Chemical Reactor,165.8,42.5,315.8
+Compressor-C201,Compressor,250.5,85.3,150.5
+Heat Exchanger-H202,Heat Exchanger,195.5,32.5,178.5
+Storage Tank-T101,Storage Tank,0.0,2.5,25.0
+Mixer-M101,Mixer,120.5,15.8,45.5
+Reactor-A103,Chemical Reactor,175.2,48.5,325.2
+Distillation Column-D302,Distillation Unit,190.3,30.2,225.8
+Separator-S101,Separator,140.5,25.5,95.5
+Heat Exchanger-H203,Heat Exchanger,205.8,38.2,192.5
+Pump-P102,Pump,88.5,58.5,68.5
+Condenser-C101,Condenser,175.5,22.5,55.2
+Reactor-A104,Chemical Reactor,155.8,44.8,318.5
+Boiler-B101,Boiler,320.5,95.5,450.5
+Evaporator-E101,Evaporator,185.2,42.5,205.5
+Heat Exchanger-H204,Heat Exchanger,198.5,36.5,182.5
+Crystallizer-CR101,Crystallizer,165.5,28.5,85.5
+Dryer-D101,Dryer,95.5,18.5,125.5
+Filter-F101,Filter,110.5,12.5,35.5
+Centrifuge-CF101,Centrifuge,135.5,25.5,45.5
+Reactor-A105,Chemical Reactor,168.5,46.5,322.5
+Pump-P103,Pump,92.5,52.5,62.5
+Heat Exchanger-H205,Heat Exchanger,202.5,34.5,188.5
+Distillation Column-D303,Distillation Unit,185.5,29.5,218.5
+Storage Tank-T102,Storage Tank,0.0,2.8,26.5
+Compressor-C202,Compressor,245.5,82.5,145.5
+Mixer-M102,Mixer,125.5,16.5,48.5
+Reactor-A106,Chemical Reactor,172.5,47.5,328.5
+Separator-S102,Separator,145.5,26.5,98.5
+Condenser-C102,Condenser,178.5,23.5,58.5
+Boiler-B102,Boiler,315.5,92.5,445.5
+Heat Exchanger-H206,Heat Exchanger,208.5,39.5,195.5
+Evaporator-E102,Evaporator,188.5,44.5,208.5
+Pump-P104,Pump,96.5,56.5,66.5
+Crystallizer-CR102,Crystallizer,168.5,29.5,88.5
+Dryer-D102,Dryer,98.5,19.5,128.5
+Filter-F102,Filter,112.5,13.5,38.5
+Reactor-A107,Chemical Reactor,178.5,49.5,332.5
+Distillation Column-D304,Distillation Unit,192.5,31.5,228.5
+Centrifuge-CF102,Centrifuge,138.5,26.5,48.5
+Heat Exchanger-H207,Heat Exchanger,212.5,40.5,198.5
+Storage Tank-T103,Storage Tank,0.0,3.0,28.0
+Compressor-C203,Compressor,252.5,88.5,152.5
+Mixer-M103,Mixer,128.5,17.5,52.5
+Separator-S103,Separator,148.5,27.5,102.5
+Reactor-A108,Chemical Reactor,182.5,51.5,338.5
+Pump-P105,Pump,98.5,59.5,69.5

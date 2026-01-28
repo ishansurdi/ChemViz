@@ -1,0 +1,24 @@
+# Backend Dependencies - Chemical Equipment Visualizer
+# Core Django (Python 3.13 compatible)
+Django==5.1.5
+djangorestframework==3.15.2
+django-cors-headers==4.6.0
+
+# Authentication
+djangorestframework-simplejwt==5.4.0
+
+# Data Processing (Python 3.13 compatible)
+pandas==2.2.3
+numpy==2.2.1
+
+# PDF Generation
+reportlab==4.2.5
+Pillow==11.1.0
+
+# Utilities
+python-dotenv==1.0.0
+pytz==2023.3
+
+# Development & Testing
+pytest==7.4.3
+pytest-django==4.7.0

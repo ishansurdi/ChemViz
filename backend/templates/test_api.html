@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChemViz API Tester</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 { color: #2563eb; }
+        .section {
+            margin: 20px 0;
+            padding: 20px;
+            background: #f9fafb;
+            border-radius: 4px;
+        }
+        button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover { background: #1d4ed8; }
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .result {
+            background: #1f2937;
+            color: #10b981;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 10px;
+            white-space: pre-wrap;
+            font-family: 'Courier New', monospace;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .error { color: #ef4444; }
+        .success { color: #10b981; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 ChemViz API Tester</h1>
+        <p>Test your Django backend API without needing the React frontend</p>
+        
+        <div class="section">
+            <h2>1. Register User</h2>
+            <input type="text" id="regUsername" placeholder="Username">
+            <input type="email" id="regEmail" placeholder="Email">
+            <input type="password" id="regPassword" placeholder="Password">
+            <button onclick="register()">Register</button>
+            <div id="regResult" class="result" style="display:none"></div>
+        </div>
+
+        <div class="section">
+            <h2>2. Login</h2>
+            <input type="text" id="loginUsername" placeholder="Username">
+            <input type="password" id="loginPassword" placeholder="Password">
+            <button onclick="login()">Login</button>
+            <div id="loginResult" class="result" style="display:none"></div>
+        </div>
+
+        <div class="section">
+            <h2>3. Upload CSV</h2>
+            <p>Token: <span id="tokenDisplay" style="color: #10b981; font-weight: bold;">Not logged in</span></p>
+            <input type="text" id="datasetName" placeholder="Dataset Name" value="Test Dataset">
+            <input type="file" id="csvFile" accept=".csv">
+            <button onclick="uploadCSV()">Upload CSV</button>
+            <div id="uploadResult" class="result" style="display:none"></div>
+        </div>
+
+        <div class="section">
+            <h2>4. Get Summary</h2>
+            <button onclick="getSummary()">Get Summary Statistics</button>
+            <div id="summaryResult" class="result" style="display:none"></div>
+        </div>
+
+        <div class="section">
+            <h2>5. Get Equipment Data</h2>
+            <button onclick="getData()">Get Equipment Data</button>
+            <div id="dataResult" class="result" style="display:none"></div>
+        </div>
+
+        <div class="section">
+            <h2>6. Download Report</h2>
+            <button onclick="downloadReport()">Download PDF Report</button>
+            <div id="reportResult" class="result" style="display:none"></div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://127.0.0.1:8000/api';
+        let accessToken = null;
+
+        function showResult(elementId, message, isError = false) {
+            const element = document.getElementById(elementId);
+            element.style.display = 'block';
+            element.className = 'result ' + (isError ? 'error' : 'success');
+            element.textContent = typeof message === 'object' ? JSON.stringify(message, null, 2) : message;
+        }
+
+        async function register() {
+            const username = document.getElementById('regUsername').value;
+            const email = document.getElementById('regEmail').value;
+            const password = document.getElementById('regPassword').value;
+
+            if (!username || !email || !password) {
+                showResult('regResult', 'Please fill all fields', true);
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_BASE}/auth/register/`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, email, password, password2: password })
+                });
+                const data = await response.json();
+                showResult('regResult', data, !data.success);
+            } catch (error) {
+                showResult('regResult', 'Error: ' + error.message, true);
+            }
+        }
+
+        async function login() {
+            const username = document.getElementById('loginUsername').value;
+            const password = document.getElementById('loginPassword').value;
+
+            if (!username || !password) {
+                showResult('loginResult', 'Please fill all fields', true);
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_BASE}/auth/login/`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+                const data = await response.json();
+                
+                if (data.success) {
+                    accessToken = data.data.tokens.access;
+                    document.getElementById('tokenDisplay').textContent = 'Logged in ✓';
+                    showResult('loginResult', 'Login successful!\n\n' + JSON.stringify(data, null, 2));
+                } else {
+                    showResult('loginResult', data, true);
+                }
+            } catch (error) {
+                showResult('loginResult', 'Error: ' + error.message, true);
+            }
+        }
+
+        async function uploadCSV() {
+            if (!accessToken) {
+                showResult('uploadResult', 'Please login first', true);
+                return;
+            }
+
+            const file = document.getElementById('csvFile').files[0];
+            const name = document.getElementById('datasetName').value;
+
+            if (!file) {
+                showResult('uploadResult', 'Please select a CSV file', true);
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('name', name);
+
+            try {
+                const response = await fetch(`${API_BASE}/datasets/upload/`, {
+                    method: 'POST',
+                    headers: { 'Authorization': `Bearer ${accessToken}` },
+                    body: formData
+                });
+                const data = await response.json();
+                showResult('uploadResult', data, !data.success);
+            } catch (error) {
+                showResult('uploadResult', 'Error: ' + error.message, true);
+            }
+        }
+
+        async function getSummary() {
+            if (!accessToken) {
+                showResult('summaryResult', 'Please login first', true);
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_BASE}/summary/`, {
+                    headers: { 'Authorization': `Bearer ${accessToken}` }
+                });
+                const data = await response.json();
+                showResult('summaryResult', data, !data.success);
+            } catch (error) {
+                showResult('summaryResult', 'Error: ' + error.message, true);
+            }
+        }
+
+        async function getData() {
+            if (!accessToken) {
+                showResult('dataResult', 'Please login first', true);
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_BASE}/data/?page=1&page_size=10`, {
+                    headers: { 'Authorization': `Bearer ${accessToken}` }
+                });
+                const data = await response.json();
+                showResult('dataResult', data, !data.success);
+            } catch (error) {
+                showResult('dataResult', 'Error: ' + error.message, true);
+            }
+        }
+
+        async function downloadReport() {
+            if (!accessToken) {
+                showResult('reportResult', 'Please login first', true);
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_BASE}/report/`, {
+                    headers: { 'Authorization': `Bearer ${accessToken}` }
+                });
+                
+                if (response.ok) {
+                    const blob = await response.blob();
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'ChemViz_Report.pdf';
+                    document.body.appendChild(a);
+                    a.click();
+                    a.remove();
+                    showResult('reportResult', 'PDF downloaded successfully! ✓');
+                } else {
+                    const data = await response.json();
+                    showResult('reportResult', data, true);
+                }
+            } catch (error) {
+                showResult('reportResult', 'Error: ' + error.message, true);
+            }
+        }
+    </script>
+</body>
+</html>
