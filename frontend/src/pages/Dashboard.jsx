@@ -135,8 +135,6 @@ function Dashboard() {
           color="purple"
         />
       </div>
-        />
-      </div>
 
       {/* Summary Statistics */}
       {summary && (
