@@ -13,6 +13,10 @@ numpy==2.2.1
 
 # PDF Generation
 reportlab==4.2.5
+
+# Production Server (for Render deployment)
+gunicorn==21.2.0
+whitenoise==6.6.0
 Pillow==11.1.0
 
 # Utilities
