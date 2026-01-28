@@ -1,347 +1,646 @@
 # ChemViz - Chemical Equipment Parameter Visualizer
 
-**Hybrid Web + Desktop Analytics Platform for Chemical Equipment Data**
-
-> IITB FOSSEE Internship Screening Project
-
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Python](https://img.shields.io/badge/Python-3.8+-green.svg)](https://python.org)
-[![Django](https://img.shields.io/badge/Django-4.2-green.svg)](https://djangoproject.com)
-[![React](https://img.shields.io/badge/React-18.2-blue.svg)](https://reactjs.org)
+[![Python](https://img.shields.io/badge/Python-3.13-blue.svg)](https://python.org)
+[![Django](https://img.shields.io/badge/Django-5.1-green.svg)](https://djangoproject.com)
+[![React](https://img.shields.io/badge/React-18.2-61dafb.svg)](https://reactjs.org)
+[![PyQt5](https://img.shields.io/badge/PyQt5-5.15-green.svg)](https://www.riverbankcomputing.com/software/pyqt/)
+[![Status](https://img.shields.io/badge/Status-Production-success.svg)](https://chemviz-5ot3.onrender.com)
 
-## 📋 Overview
+**Industrial-Grade Hybrid Web + Desktop Analytics Platform for Chemical Equipment Data Management**
 
-ChemViz is a professional-grade analytics platform designed for chemical equipment parameter visualization and analysis. The system provides both web and desktop interfaces, allowing users to upload CSV datasets, perform automated analytics using Pandas, visualize equipment parameters, and generate comprehensive PDF reports.
+🌐 **Live Demo:** [https://chemviz-5ot3.onrender.com](https://chemviz-5ot3.onrender.com)  
+📦 **Desktop App:** [Download v1.0.0](https://github.com/ishansurdi/ChemViz/releases/latest)  
+📚 **API Docs:** [https://chemviz-backend-i9o3.onrender.com](https://chemviz-backend-i9o3.onrender.com)
 
-### Key Features
+---
 
-✅ **Dual Interface**: Web (React + Chart.js) and Desktop (PyQt5 + Matplotlib)  
-✅ **RESTful Backend**: Django + Django REST Framework with JWT authentication  
-✅ **Data Analytics**: Automated CSV parsing and statistical analysis using Pandas  
-✅ **Visualizations**: Interactive charts showing equipment distributions and parameters  
-✅ **PDF Reports**: Professional ISO-compliant technical reports via ReportLab  
-✅ **History Management**: Maintains last 5 datasets with automatic cleanup  
-✅ **Secure Authentication**: JWT-based user authentication system  
-✅ **Responsive Design**: Works seamlessly across all device sizes
+## 📋 Table of Contents
+
+- [Overview](#-overview)
+- [System Architecture](#-system-architecture)
+- [Technology Stack](#-technology-stack)
+- [Features](#-features)
+- [Installation](#-installation)
+- [Deployment](#-deployment)
+- [API Documentation](#-api-documentation)
+- [Project Structure](#-project-structure)
+- [Testing](#-testing)
+- [Contributing](#-contributing)
+- [License](#-license)
+
+---
+
+## 📖 Overview
+
+**ChemViz** is a comprehensive, production-ready analytics platform engineered for chemical equipment parameter visualization, statistical analysis, and reporting. The system implements a hybrid architecture supporting both web-based and native desktop interfaces, unified through a RESTful API backend with enterprise-grade security and data processing capabilities.
+
+### Problem Statement
+
+Chemical equipment monitoring requires real-time data analysis, visualization of complex parameter relationships, and generation of compliance-ready technical reports. ChemViz addresses these requirements through:
+
+- **Automated CSV ingestion** with multi-encoding support and validation
+- **Real-time statistical analysis** using vectorized NumPy operations
+- **Interactive visualizations** with Chart.js (web) and Matplotlib (desktop)
+- **ISO-compliant PDF generation** with ReportLab
+- **JWT-based authentication** ensuring secure multi-user access
+
+### Use Cases
+
+- ✅ Chemical plant parameter monitoring and trend analysis
+- ✅ Equipment performance benchmarking across multiple datasets
+- ✅ Automated technical report generation for compliance
+- ✅ Historical data management with automated retention policies
+- ✅ Multi-platform access (web dashboard + desktop application)
+
+---
 
 ## 🏗️ System Architecture
 
-```
-┌───────────────┐
-│ React Web App │  ← Interactive UI with Chart.js
-│ Chart.js      │
-└───────┬───────┘
-        │ HTTP REST API (JSON)
-        │
-┌───────▼────────┐
-│ Django REST API│  ← Backend Server
-│ Pandas Engine  │  ← Data Processing
-└───────┬────────┘
-        │
-┌───────▼────────┐
-│ SQLite Database│  ← Data Storage
-└───────┬────────┘
-        │
-┌───────▼────────┐
-│ PyQt5 Desktop  │  ← Native Desktop App
-│ Matplotlib     │
-└────────────────┘
-```
+![ChemViz System Architecture](images/sa.png)
 
-## 🚀 Quick Start
+### Data Flow Diagram
 
-### Prerequisites
+![ChemViz Data Flow Diagram](images/df.png)
 
-- **Python 3.8+** (for backend)
-- **Node.js 16+** (for frontend)
-- **Git**
+---
 
-### 1. Clone the Repository
+## 🛠️ Technology Stack
 
-```bash
-git clone <repository-url>
-cd Fosse
-```
+### Backend (Django REST API)
 
-### 2. Backend Setup
+| Component | Technology | Version | Purpose |
+|-----------|-----------|---------|---------|
+| **Framework** | Django | 5.1.5 | Web framework with ORM |
+| **API** | Django REST Framework | 3.15.2 | RESTful API implementation |
+| **Authentication** | SimpleJWT | 5.4.0 | JWT token management |
+| **Data Processing** | Pandas | 2.2.3 | CSV parsing & analytics |
+| **Numerical Computing** | NumPy | 2.2.1 | Statistical operations |
+| **PDF Generation** | ReportLab | 4.2.5 | Technical report creation |
+| **CORS** | django-cors-headers | 4.6.0 | Cross-origin requests |
+| **WSGI Server** | Gunicorn | 21.2.0 | Production deployment |
+| **Static Files** | WhiteNoise | 6.6.0 | Static asset serving |
+| **Database** | SQLite | 3.x | Development/Production DB |
 
-```bash
+### Frontend (React Web Application)
+
+| Component | Technology | Version | Purpose |
+|-----------|-----------|---------|---------|
+| **Framework** | React | 18.2.0 | UI component library |
+| **Build Tool** | Vite | 5.4.21 | Fast development & bundling |
+| **Routing** | React Router | 6.x | Client-side navigation |
+| **HTTP Client** | Axios | 1.6.2 | API communication |
+| **Charts** | Chart.js | 4.4.1 | Data visualization |
+| **Styling** | Tailwind CSS | 3.4.0 | Utility-first CSS |
+| **Icons** | Heroicons | 2.x | SVG icon library |
+| **Notifications** | React Hot Toast | 2.x | User notifications |
+
+### Desktop Application (PyQt5)
+
+| Component | Technology | Version | Purpose |
+|-----------|-----------|---------|---------|
+| **GUI Framework** | PyQt5 | 5.15.11 | Native desktop UI |
+| **Plotting** | Matplotlib | 3.10.0 | Chart generation |
+| **HTTP Client** | Requests | 2.31.0 | API communication |
+| **Arrays** | NumPy | 2.2.1 | Data manipulation |
+| **Packaging** | PyInstaller | 6.11.1 | Executable generation |
+
+### Development & Deployment
+
+| Tool | Purpose |
+|------|---------|
+| **Git** | Version control |
+| **GitHub** | Repository hosting |
+| **Render.com** | Cloud deployment (web + API) |
+| **PowerShell** | Build automation scripts |
+| **VS Code** | Development environment |
+
+---
+
+## ✨ Features
+
+### 🔐 Authentication & Security
+
+- **JWT Token Authentication** with access/refresh token rotation
+- **Password validation** (minimum 8 characters, complexity requirements)
+- **CSRF protection** for state-changing operations
+- **CORS configuration** for secure cross-origin requests
+- **HTTPS enforcement** in production
+- **Rate limiting** on authentication endpoints
+
+### 📤 Data Management
+
+- **CSV Upload** with drag-and-drop interface
+- **Multi-encoding support** (UTF-8, Latin-1, Windows-1252)
+- **File validation** (max 10MB, CSV format verification)
+- **Automatic data cleaning** (null handling, type conversion)
+- **Bulk database operations** for performance
+- **Dataset history** with automatic retention (last 5 datasets)
+
+### 📊 Analytics Engine
+
+- **Real-time statistics calculation**:
+  - Total equipment count
+  - Average flowrate, pressure, temperature
+  - Equipment type distribution (count & percentage)
+  - Per-type parameter averages
+- **Vectorized NumPy operations** for performance
+- **Indexed database queries** for fast retrieval
+- **Pagination support** (50 records per page)
+
+### 📈 Visualization
+
+**Web (Chart.js)**:
+- Bar charts for equipment type distribution
+- Line charts for parameter trends
+- Pie charts for percentage analysis
+- Interactive legends and tooltips
+- Responsive design for mobile devices
+
+**Desktop (Matplotlib)**:
+- High-resolution charts (DPI 90-100)
+- Customizable figure sizes (14x7 to 18x8 inches)
+- Professional styling with gridlines
+- Export capabilities
+
+### 📄 Report Generation
+
+- **PDF technical reports** with ReportLab
+- **ISO-compliant layout** with headers/footers
+- **Embedded data tables** with formatting
+- **Statistical summaries** and equipment listings
+- **Timestamp and metadata** inclusion
+- **Professional typography** (IBM Plex Sans family)
+
+### 🖥️ Desktop Application Features
+
+- **Standalone Windows executable** (~200MB)
+- **Auto-connects to production backend**
+- **All web features available offline-ready**
+- **Native OS integration** (file dialogs, notifications)
+- **No Python installation required**
+
+---
+
+## 🚀 Installation
+
+### Backend Setup
+
+```powershell
+# Navigate to backend directory
 cd backend
 
-# Windows PowerShell
-.\setup.ps1
-
-# Or manually:
+# Create virtual environment
 python -m venv venv
-venv\Scripts\activate  # Windows
+
+# Activate virtual environment (Windows)
+.\venv\Scripts\Activate.ps1
+
+# Install dependencies
 pip install -r requirements.txt
+
+# Configure environment variables
+# Create backend/.env file:
+# SECRET_KEY=your-secret-key-here
+# DEBUG=True
+# DATABASE_NAME=chemviz.db
+
+# Run migrations
 python manage.py migrate
+
+# Create superuser
 python manage.py createsuperuser
+
+# Start development server
 python manage.py runserver
 ```
 
-Backend will run at: `http://127.0.0.1:8000`
+**Backend runs at:** `http://127.0.0.1:8000`
 
-### 3. Frontend Setup
+### Frontend Setup
 
-```bash
+```powershell
+# Navigate to frontend directory
 cd frontend
 
-# Windows PowerShell
-.\setup.ps1
-
-# Or manually:
+# Install dependencies
 npm install
+
+# Configure environment
+# Create frontend/.env file:
+# VITE_API_BASE_URL=http://127.0.0.1:8000/api
+
+# Start development server
 npm run dev
 ```
 
-Frontend will run at: `http://localhost:3000`
+**Frontend runs at:** `http://localhost:3000`
 
-### 4. Test with Sample Data
+### Desktop Application Setup
 
-1. Register a new user at `http://localhost:3000/register`
-2. Login with your credentials
-3. Upload the provided `sample_equipment_data.csv`
-4. View analytics, charts, and generate reports!
+```powershell
+# Navigate to desktop directory
+cd desktop
+
+# Create virtual environment
+python -m venv venv
+.\venv\Scripts\Activate.ps1
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Run application
+python main.py
+```
+
+**Building Executable:**
+
+```powershell
+pip install pyinstaller
+pyinstaller ChemViz-Desktop.spec
+# Output: desktop/dist/ChemViz-Desktop.exe
+```
+
+### Sample Data
+
+Use the provided sample dataset:
+```
+backend/sample_equipment_data.csv
+```
+
+Contains 50 equipment records across 15 types with realistic parameters.
+
+---
+
+## 🌐 Deployment
+
+### Render.com Deployment
+
+#### Backend Deployment
+
+1. **Create Web Service** on Render
+2. **Connect GitHub repository:** `ishansurdi/ChemViz`
+3. **Configuration:**
+   - Root Directory: `backend`
+   - Build Command: `./build.sh`
+   - Start Command: `gunicorn chemviz.wsgi:application`
+   - Environment: Python 3
+4. **Environment Variables:**
+   ```
+   SECRET_KEY=<generate-random-secret>
+   DEBUG=False
+   ALLOWED_HOSTS=chemviz-backend.onrender.com
+   CORS_ALLOWED_ORIGINS=https://chemviz-frontend.onrender.com
+   RENDER=True
+   ```
+
+#### Frontend Deployment
+
+1. **Create Static Site** on Render
+2. **Configuration:**
+   - Root Directory: `frontend`
+   - Build Command: `npm install && npm run build`
+   - Publish Directory: `dist`
+3. **Environment Variable:**
+   ```
+   VITE_API_BASE_URL=https://chemviz-backend-i9o3.onrender.com/api
+   ```
+
+**Live URLs:**
+- Frontend: https://chemviz-5ot3.onrender.com
+- Backend API: https://chemviz-backend-i9o3.onrender.com
+- Health Check: https://chemviz-backend-i9o3.onrender.com/api/health/
+
+See [RENDER_DEPLOYMENT.md](RENDER_DEPLOYMENT.md) for detailed instructions.
+
+---
+
+## 📚 API Documentation
+
+### Authentication Endpoints
+
+#### Register User
+```http
+POST /api/auth/register/
+Content-Type: application/json
+
+{
+  "username": "user123",
+  "email": "user@example.com",
+  "password": "SecurePass123"
+}
+
+Response 201:
+{
+  "success": true,
+  "data": {
+    "user": {...},
+    "tokens": {
+      "access": "eyJ0eXAiOiJKV1...",
+      "refresh": "eyJ0eXAiOiJKV1..."
+    }
+  }
+}
+```
+
+#### Login
+```http
+POST /api/auth/login/
+Content-Type: application/json
+
+{
+  "username": "user123",
+  "password": "SecurePass123"
+}
+
+Response 200:
+{
+  "success": true,
+  "data": {
+    "tokens": {...},
+    "user": {...}
+  }
+}
+```
+
+### Data Endpoints
+
+#### Upload Dataset
+```http
+POST /api/datasets/upload/
+Authorization: Bearer <access_token>
+Content-Type: multipart/form-data
+
+name: "Production Data Q1"
+file: equipment_data.csv (binary)
+
+Response 201:
+{
+  "success": true,
+  "data": {
+    "id": "uuid",
+    "name": "Production Data Q1",
+    "total_equipment": 50,
+    "processing_status": "completed"
+  }
+}
+```
+
+#### Get Summary Statistics
+```http
+GET /api/summary/
+Authorization: Bearer <access_token>
+
+Response 200:
+{
+  "success": true,
+  "data": {
+    "total_equipment": 50,
+    "avg_flowrate": 119.80,
+    "avg_pressure": 6.11,
+    "avg_temperature": 117.47,
+    "equipment_type_distribution": [...]
+  }
+}
+```
+
+#### Get Paginated Equipment Data
+```http
+GET /api/data/?page=1&page_size=50
+Authorization: Bearer <access_token>
+
+Response 200:
+{
+  "success": true,
+  "data": {
+    "dataset_name": "...",
+    "equipment": [...],
+    "page": 1,
+    "page_size": 50,
+    "total_pages": 5,
+    "total_equipment": 250
+  }
+}
+```
+
+#### Download PDF Report
+```http
+GET /api/report/
+Authorization: Bearer <access_token>
+
+Response 200:
+Content-Type: application/pdf
+Content-Disposition: attachment; filename="ChemViz_Report_2026-01-28.pdf"
+
+<binary PDF data>
+```
+
+#### Dataset History
+```http
+GET /api/datasets/history/
+Authorization: Bearer <access_token>
+
+Response 200:
+{
+  "success": true,
+  "data": {
+    "datasets": [...],
+    "total_datasets": 3
+  }
+}
+```
+
+### Error Responses
+
+```json
+{
+  "success": false,
+  "error": {
+    "code": "VALIDATION_ERROR",
+    "message": "Invalid CSV format",
+    "details": {...}
+  }
+}
+```
+
+Status Codes:
+- `200` - Success
+- `201` - Created
+- `400` - Bad Request
+- `401` - Unauthorized
+- `403` - Forbidden
+- `404` - Not Found
+- `500` - Internal Server Error
+
+---
 
 ## 📁 Project Structure
 
 ```
-Fosse/
-├── backend/                    # Django REST API
-│   ├── chemviz/               # Project settings
-│   ├── api/                   # Main API app
-│   │   ├── models.py         # Database models
-│   │   ├── views.py          # API endpoints
+ChemViz/
+├── backend/                  # Django REST API
+│   ├── api/                  # Main API application
+│   │   ├── models.py         # Database models (Dataset, Equipment)
 │   │   ├── serializers.py    # DRF serializers
-│   │   ├── services.py       # Data processing logic
-│   │   ├── pdf_generator.py  # PDF report generation
-│   │   └── admin.py          # Django admin
-│   ├── requirements.txt       # Python dependencies
-│   ├── manage.py             # Django CLI
-│   └── sample_equipment_data.csv  # Sample data
+│   │   ├── views.py          # API endpoints (8 endpoints)
+│   │   ├── services.py       # Business logic (DataProcessor)
+│   │   ├── pdf_generator.py  # ReportLab PDF engine
+│   │   ├── utils.py          # Helper functions
+│   │   ├── urls.py           # URL routing
+│   │   └── admin.py          # Django admin config
+│   ├── chemviz/              # Project settings
+│   │   ├── settings.py       # Django configuration
+│   │   ├── urls.py           # Root URL config
+│   │   └── wsgi.py           # WSGI application
+│   ├── templates/            # HTML templates
+│   │   ├── index.html        # Landing page
+│   │   └── test_api.html     # API testing interface
+│   ├── requirements.txt      # Python dependencies
+│   ├── build.sh              # Render build script
+│   ├── manage.py             # Django management
+│   └── sample_equipment_data.csv  # Test dataset
 │
-├── frontend/                   # React Web App
+├── frontend/                 # React Web Application
 │   ├── src/
+│   │   ├── pages/            # Page components
+│   │   │   ├── Dashboard.jsx # Main dashboard
+│   │   │   ├── Login.jsx     # Authentication
+│   │   │   ├── Register.jsx  # User registration
+│   │   │   ├── Upload.jsx    # CSV upload interface
+│   │   │   ├── Analytics.jsx # Chart visualizations
+│   │   │   ├── DataTable.jsx # Paginated data table
+│   │   │   ├── History.jsx   # Dataset history
+│   │   │   └── NotFound.jsx  # 404 page
 │   │   ├── components/       # Reusable components
-│   │   ├── pages/            # Route pages
-│   │   ├── context/          # React Context
-│   │   ├── services/         # API services
-│   │   ├── App.jsx           # Main app
+│   │   │   ├── Layout.jsx    # App layout wrapper
+│   │   │   ├── Navbar.jsx    # Navigation bar
+│   │   │   └── Sidebar.jsx   # Side navigation
+│   │   ├── services/
+│   │   │   └── api.js        # Axios HTTP client
+│   │   ├── context/
+│   │   │   └── AuthContext.jsx  # Auth state management
+│   │   ├── App.jsx           # Main app component
 │   │   └── main.jsx          # Entry point
 │   ├── package.json          # npm dependencies
-│   └── vite.config.js        # Vite config
+│   ├── vite.config.js        # Vite configuration
+│   ├── tailwind.config.js    # Tailwind CSS config
+│   └── .env                  # Environment variables
 │
-├── desktop/                    # PyQt5 Desktop App (WIP)
-│   ├── main.py               # Desktop app entry
-│   └── requirements.txt       # Desktop dependencies
+├── desktop/                  # PyQt5 Desktop Application
+│   ├── main.py               # Application entry point (1000+ lines)
+│   ├── requirements.txt      # Python dependencies
+│   ├── ChemViz-Desktop.spec  # PyInstaller configuration
+│   ├── BUILD_EXE.md          # Build instructions
+│   └── dist/                 # Built executable (after build)
+│       └── ChemViz-Desktop.exe
 │
-├── index.html                  # Landing page
-└── README.md                   # This file
+├── .gitignore                # Git ignore rules
+├── README.md                 # This file
+└── RENDER_DEPLOYMENT.md      # Deployment guide
 ```
-
-## 🔐 API Endpoints
-
-### Authentication
-- `POST /api/auth/register/` - Register new user
-- `POST /api/auth/login/` - Login and get JWT tokens
-- `POST /api/auth/logout/` - Logout
-- `POST /api/token/refresh/` - Refresh access token
-
-### Datasets
-- `GET /api/datasets/` - List all datasets
-- `POST /api/datasets/upload/` - Upload CSV file
-- `GET /api/datasets/history/` - Get last 5 datasets
-- `GET /api/datasets/{id}/summary/` - Get dataset summary
-- `GET /api/datasets/{id}/data/` - Get equipment records
-- `GET /api/datasets/{id}/report/` - Download PDF report
-
-### Quick Access (Latest Dataset)
-- `GET /api/summary/` - Summary statistics
-- `GET /api/data/` - Equipment data
-- `GET /api/report/` - PDF report
-
-## 📊 CSV Format
-
-Your CSV file must contain these columns:
-
-| Column | Description | Example |
-|--------|-------------|---------|
-| Equipment Name | Equipment identifier | Reactor-A101 |
-| Type | Equipment category | Chemical Reactor |
-| Flowrate | Flow rate (numeric) | 150.5 |
-| Pressure | Pressure (numeric) | 45.2 |
-| Temperature | Temperature (numeric) | 320.5 |
-
-Example CSV:
-```csv
-Equipment Name,Type,Flowrate,Pressure,Temperature
-Reactor-A101,Chemical Reactor,150.5,45.2,320.5
-Heat Exchanger-H201,Heat Exchanger,200.3,35.8,185.2
-```
-
-## 🛠️ Technology Stack
-
-### Backend
-- **Django 4.2** - Web framework
-- **Django REST Framework** - API framework
-- **djangorestframework-simplejwt** - JWT authentication
-- **Pandas** - Data analysis
-- **ReportLab** - PDF generation
-- **SQLite** - Database (dev), PostgreSQL ready
-
-### Frontend
-- **React 18.2** - UI framework
-- **Vite** - Build tool
-- **React Router v6** - Routing
-- **Axios** - HTTP client
-- **Chart.js** - Data visualization
-- **Tailwind CSS** - Styling
-- **React Hot Toast** - Notifications
-
-### Desktop (Coming Soon)
-- **PyQt5** - GUI framework
-- **Matplotlib** - Charts
-- **Same REST API** - Backend integration
-
-## 📈 Features Breakdown
-
-### 1. Data Upload & Processing
-- Drag-and-drop CSV upload
-- Automatic validation
-- Pandas-powered data cleaning
-- Real-time processing feedback
-
-### 2. Analytics & Visualizations
-- Equipment type distribution (Bar chart)
-- Parameter comparison (Line chart)
-- Percentage distribution (Pie chart)
-- Summary statistics cards
-
-### 3. Data Management
-- Last 5 datasets retention
-- Automatic old dataset cleanup
-- Processing status tracking
-- Error handling and reporting
-
-### 4. PDF Reports
-- Professional layout
-- Summary statistics table
-- Equipment type distribution
-- First 50 equipment records
-- ISO-compliant formatting
-
-### 5. Security
-- JWT authentication
-- Password hashing
-- CORS configuration
-- CSRF protection
-- Secure file uploads
-
-## 🧪 Testing
-
-### Backend Tests
-```bash
-cd backend
-python manage.py test
-```
-
-### Frontend Tests
-```bash
-cd frontend
-npm run test
-```
-
-### Manual Testing
-1. Upload `sample_equipment_data.csv`
-2. Verify data appears in dashboard
-3. Check analytics charts render correctly
-4. Download and verify PDF report
-5. Test pagination in data table
-6. Verify history shows uploaded datasets
-
-## 🚢 Deployment
-
-### Backend (Django)
-1. Set `DEBUG=False` in settings
-2. Configure PostgreSQL database
-3. Set strong `SECRET_KEY`
-4. Configure `ALLOWED_HOSTS`
-5. Set up static file serving
-6. Enable HTTPS
-
-### Frontend (React)
-```bash
-cd frontend
-npm run build
-# Deploy dist/ folder to static hosting
-```
-
-**Recommended Platforms:**
-- Backend: Heroku, Railway, DigitalOcean, AWS
-- Frontend: Vercel, Netlify, Cloudflare Pages
-- Database: PostgreSQL on managed services
-
-## 📝 Environment Variables
-
-### Backend (.env)
-```ini
-SECRET_KEY=your-secret-key
-DEBUG=True
-ALLOWED_HOSTS=localhost,127.0.0.1
-CORS_ALLOWED_ORIGINS=http://localhost:3000
-JWT_ACCESS_TOKEN_LIFETIME=60
-JWT_REFRESH_TOKEN_LIFETIME=1440
-```
-
-### Frontend (.env)
-```
-VITE_API_BASE_URL=http://127.0.0.1:8000/api
-```
-
-## 🤝 Contributing
-
-This is a screening project for IITB FOSSEE internship. Contributions are welcome after initial evaluation.
-
-## 📄 License
-
-This project is part of the IITB FOSSEE internship screening task.
-
-## 👤 Author
-
-**Your Name**
-- Email: your.email@example.com
-- GitHub: [@yourusername](https://github.com/yourusername)
-
-## 🙏 Acknowledgments
-
-- **IITB FOSSEE** for the project requirements
-- **Django** & **React** communities
-- **Chart.js** for excellent visualization library
-- **Tailwind CSS** for utility-first styling
-
-## 📞 Support
-
-For issues or questions:
-1. Check the documentation in `/backend/README.md` and `/frontend/README.md`
-2. Review the API endpoints and response formats
-3. Ensure all dependencies are properly installed
-4. Verify backend is running before starting frontend
-
-## 🎯 Project Goals Met
-
-✅ Web Application (React + Chart.js)  
-✅ Backend API (Django + DRF)  
-✅ CSV Upload & Processing  
-✅ Data Summary API  
-✅ Visualizations (Multiple chart types)  
-✅ History Management (Last 5 datasets)  
-✅ PDF Report Generation  
-✅ JWT Authentication  
-✅ Sample CSV Data  
-✅ Complete Documentation  
-✅ Industry-level Code Structure  
 
 ---
 
-**Built with ❤️ for IITB FOSSEE Internship Screening**
+## 🧪 Testing
+
+### Backend Testing
+
+```powershell
+cd backend
+.\venv\Scripts\Activate.ps1
+python manage.py test api
+```
+
+### Manual API Testing
+
+Use the interactive test interface:
+```
+http://127.0.0.1:8000/test/
+```
+
+Or use curl/Postman with the API endpoints documented above.
+
+### Frontend Testing
+
+```powershell
+cd frontend
+npm run build    # Production build test
+npm run preview  # Preview production build
+```
+
+### Desktop Application Testing
+
+```powershell
+cd desktop
+.\venv\Scripts\Activate.ps1
+python main.py
+```
+
+Test credentials (production):
+- Username: `ishansurdii`
+- Password: `Test@123`
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Please follow these guidelines:
+
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/amazing-feature`
+3. Commit changes: `git commit -m 'Add amazing feature'`
+4. Push to branch: `git push origin feature/amazing-feature`
+5. Open a Pull Request
+
+### Code Style
+
+- **Python:** Follow PEP 8 (use `black` formatter)
+- **JavaScript:** Follow Airbnb style guide (use `prettier`)
+- **Commits:** Use conventional commits format
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+## 👤 Author
+
+**Ishan Surdi**
+
+- GitHub: [@ishansurdi](https://github.com/ishansurdi)
+- Email: ishansurdi2105@gmail.com
+
+---
+
+## 🙏 Acknowledgments
+
+- **Django** and **React** communities for excellent documentation
+- **Render.com** for free-tier hosting
+- **ReportLab** for PDF generation capabilities
+- **PyQt5** for desktop application framework
+
+---
+
+## 📊 Project Stats
+
+- **Lines of Code:** ~5,000+
+- **API Endpoints:** 8
+- **Database Tables:** 6
+- **Chart Types:** 3 (Bar, Line, Pie)
+- **Development Time:** 2 weeks
+- **Test Coverage:** Core features tested
+
+---
+
+## 🔗 Links
+
+- **Live Demo:** https://chemviz-5ot3.onrender.com
+- **API Backend:** https://chemviz-backend-i9o3.onrender.com
+- **Desktop Release:** https://github.com/ishansurdi/ChemViz/releases
+
+---
+
+**Built with ❤️ using Django, React, and PyQt5**
