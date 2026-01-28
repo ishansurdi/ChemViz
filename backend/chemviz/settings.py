@@ -165,11 +165,21 @@ SIMPLE_JWT = {
 }
 
 
-# CORS Settings
-CORS_ALLOWED_ORIGINS = os.getenv(
-    'CORS_ALLOWED_ORIGINS',
-    'http://localhost:3000,http://127.0.0.1:3000'
-).split(',')
+# CORS Settings - Allow frontend origins
+if DEBUG:
+    # Development: Allow localhost
+    CORS_ALLOWED_ORIGINS = [
+        'http://localhost:3000',
+        'http://127.0.0.1:3000',
+        'http://localhost:5173',
+        'http://127.0.0.1:5173',
+    ]
+else:
+    # Production: Allow Render frontend
+    CORS_ALLOWED_ORIGINS = os.getenv(
+        'CORS_ALLOWED_ORIGINS',
+        'https://chemviz-5ot3.onrender.com'
+    ).split(',')
 
 CORS_ALLOW_CREDENTIALS = True
 
