@@ -42,7 +42,7 @@ Chemical equipment monitoring requires real-time data analysis, visualization of
 - **Automated CSV ingestion** with multi-encoding support and validation
 - **Real-time statistical analysis** using vectorized NumPy operations
 - **Interactive visualizations** with Chart.js (web) and Matplotlib (desktop)
-- **ISO-compliant PDF generation** with ReportLab
+- **Structured PDF report generation suitable for academic and technical use** with ReportLab
 - **JWT-based authentication** ensuring secure multi-user access
 
 ### Use Cases
@@ -176,7 +176,7 @@ Chemical equipment monitoring requires real-time data analysis, visualization of
 
 - **Standalone Windows executable** (~200MB)
 - **Auto-connects to production backend**
-- **All web features available offline-ready**
+- **Desktop application functions as a native client consuming the hosted REST API**
 - **Native OS integration** (file dialogs, notifications)
 - **No Python installation required**
 
@@ -576,9 +576,8 @@ cd desktop
 python main.py
 ```
 
-Test credentials (production):
-- Username: `ishansurdii`
-- Password: `Test@123`
+Authentication:
+- Users can register and log in using the web interface.
 
 ---
 
@@ -630,7 +629,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **API Endpoints:** 8
 - **Database Tables:** 6
 - **Chart Types:** 3 (Bar, Line, Pie)
-- **Development Time:** 2 weeks
+- **Development Time:** ~2 weeks (screening task implementation)
 - **Test Coverage:** Core features tested
 
 ---
